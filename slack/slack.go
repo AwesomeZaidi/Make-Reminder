@@ -12,17 +12,18 @@ import (
    NOTE: command_arg_1 and command_arg_2 represent optional parameteras that you define
    in the Slack API UI
 */
-const helpMessage = "type in '@BOT_NAME <command_arg_1> <command_arg_2>'"
+const helpMessage = "type in '@Make Reminder /remind'"
 
 /*
    CreateSlackClient sets up the slack RTM (real-timemessaging) client library,
    initiating the socket connection and returning the client.
    DO NOT EDIT THIS FUNCTION. This is a fully complete implementation.
 */
+// The guts of this are what's called a goroutine in golang, which establishes and manages our WebSocket connection to Slack:
 func CreateSlackClient(apiKey string) *slack.RTM {
 	api := slack.New(apiKey)
 	rtm := api.NewRTM()
-	go rtm.ManageConnection() // goroutine!
+	go rtm.ManageConnection() // goroutine! -> handle reconnecting if your connection fails for some reason.
 	return rtm
 }
 
