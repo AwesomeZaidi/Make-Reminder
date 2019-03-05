@@ -71,8 +71,8 @@ func sendHelp(slackClient *slack.RTM, message, slackChannel string) {
 
 func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 	args := strings.Split(message, " ")
-
-	switch strings.ToLower(args[3]) {
+	fmt.Println(strings.ToLower(args[0]))
+	switch strings.ToLower(args[0]) {
 	case "Chicago":
 		slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(args[1:], " "), slackChannel))
 		slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("Chicago"), slackChannel))
