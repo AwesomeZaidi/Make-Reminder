@@ -1,29 +1,27 @@
 package slack
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
 	"strings"
 
 	"github.com/nlopes/slack"
 )
 
-/*
-   TODO: Change @BOT_NAME to the same thing you entered when creating your Slack application.
-   NOTE: command_arg_1 and command_arg_2 represent optional parameteras that you define
-   in the Slack API UI
-*/
-const helpMessage = "type in '@Make Reminder'"
+const helpMessage = "type in '@make-reminder <whats the weather in> <location>'"
 
 /*
    CreateSlackClient sets up the slack RTM (real-timemessaging) client library,
    initiating the socket connection and returning the client.
    DO NOT EDIT THIS FUNCTION. This is a fully complete implementation.
 */
-// The guts of this are what's called a goroutine in golang, which establishes and manages our WebSocket connection to Slack:
 func CreateSlackClient(apiKey string) *slack.RTM {
 	api := slack.New(apiKey)
 	rtm := api.NewRTM()
-	go rtm.ManageConnection() // goroutine! -> handle reconnecting if your connection fails for some reason.
+	go rtm.ManageConnection() // goroutine!
 	return rtm
 }
 
@@ -56,7 +54,6 @@ func RespondToEvents(slackClient *slack.RTM) {
 			sendHelp(slackClient, message, ev.Channel)
 			// ===============================================================
 			// END SLACKBOT CUSTOM CODE
-		default:
 
 		}
 	}
@@ -73,8 +70,23 @@ func sendHelp(slackClient *slack.RTM, message, slackChannel string) {
 // sendResponse is NOT unimplemented --- write code in the function body to complete!
 
 func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
-	command := strings.ToLower(message)
-	println("[RECEIVED] sendResponse:", command)
+	args := strings.Split(message, " ")
+
+	switch strings.ToLower(args[3]) {
+	case "Chicago":
+		slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(args[1:], " "), slackChannel))
+		slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("Chicago"), slackChannel))
+		break
+	case "San Francisco":
+		slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
+		slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("San Francisc"), slackChannel))
+		break
+	default:
+		slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
+		slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("San Francisco"), slackChannel))
+		return
+	}
+	println("[RECEIVED] sendResponse:", args[0])
 
 	// START SLACKBOT CUSTOM CODE
 	// ===============================================================
@@ -84,4 +96,31 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 	//      2. STRETCH: Write a goroutine that calls an external API based on the data received in this function.
 	// ===============================================================
 	// END SLACKBOT CUSTOM CODE
+}
+
+func getWeather(location string) string {
+
+	// make request to get my weather
+	res, _ := http.Get(fmt.Sprintf("api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=" + os.Getenv("API_KEY")))
+
+	// read all into body
+	body, _ := ioutil.ReadAll(res.Body)
+
+	//
+	// declare struct
+	// type response struct {
+	// 	Image string `json:"img"`
+	// }
+
+	type response struct {
+		Message string `json:"message"`
+	}
+	data := response{}
+
+	// marshal into struct
+	json.Unmarshal(body, &data)
+
+	// return image url
+	return data.Message
+
 }
