@@ -86,6 +86,7 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 		slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("San Francisco"), slackChannel))
 		return
 	}
+
 	println("[RECEIVED] sendResponse:", args[0])
 
 	// START SLACKBOT CUSTOM CODE
