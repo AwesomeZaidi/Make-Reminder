@@ -38,39 +38,28 @@ func RespondToEvents(slackClient *slack.RTM) {
 		fmt.Println("Event Received: ", msg.Type)
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
-			// botTagString := fmt.Sprintf("<@%s> ", slackClient.GetInfo().User.ID)
-			// if !strings.Contains(ev.Msg.Text, botTagString) {
-			// 	continue
-			// }
-			// message := strings.Replace(ev.Msg.Text, botTagString, "", -1)
+			botTagString := fmt.Sprintf("<@%s> ", slackClient.GetInfo().User.ID)
+			if !strings.Contains(ev.Msg.Text, botTagString) {
+				continue
+			}
+			message := strings.Replace(ev.Msg.Text, botTagString, "", -1)
 
-			// // TODO: Make your bot do more than respond to a help command. See notes below.
-			// // Make changes below this line and add additional funcs to support your bot's functionality.
-			// // sendHelp is provided as a simple example. Your team may want to call a free external API
-			// // in a function called sendResponse that you'd create below the definition of sendHelp,
-			// // and call in this context to ensure execution when the bot receives an event.
+			// TODO: Make your bot do more than respond to a help command. See notes below.
+			// Make changes below this line and add additional funcs to support your bot's functionality.
+			// sendHelp is provided as a simple example. Your team may want to call a free external API
+			// in a function called sendResponse that you'd create below the definition of sendHelp,
+			// and call in this context to ensure execution when the bot receives an event.
 
-			// // START SLACKBOT CUSTOM CODE
-			// // ===============================================================
-			// sendResponse(slackClient, message, ev.Channel)
-			// sendHelp(slackClient, message, ev.Channel)
+			// START SLACKBOT CUSTOM CODE
+			// ===============================================================
+			sendResponse(slackClient, message, ev.Channel)
+			sendHelp(slackClient, message, ev.Channel)
 			// ===============================================================
 			// END SLACKBOT CUSTOM CODE
-			// default:
-			message := ev.Msg.Text
-			sendHelp(slackClient, message, ev.Channel)
-		case *slack.IMCreatedEvent:
-			greet(slackClient, ev.Channel.ID)
+		default:
+
 		}
 	}
-
-	if strings.ToLower(message) != "help" {
-		return
-	}
-
-	attachment := generateAttachment()
-	response := "What can I help you with?"
-	slackClient.PostMessage(slackChannel, slack.MsgOptionText(response, false), slack.MsgOptionAttachments(attachment))
 }
 
 // sendHelp is a working help message, for reference.
