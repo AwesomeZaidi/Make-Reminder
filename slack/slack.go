@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/jinzhu/gorm"
 	"github.com/nlopes/slack"
 )
 
@@ -104,10 +105,12 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 }
 
 type WeatherDesc struct {
+	gorm.Model
 	Description string `json:"description"`
 }
 
 type Dialog struct {
+	gorm.Model
 	Weather []WeatherDesc `json:"weather"`
 }
 
