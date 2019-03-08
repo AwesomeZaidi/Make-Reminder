@@ -9,7 +9,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jinzhu/gorm"
 	"github.com/nlopes/slack"
 )
 
@@ -75,22 +74,26 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 	args := strings.Split(message, " ")
 	fmt.Println(strings.ToLower(args[0]))
 
-	switch strings.ToLower(args[0]) {
-	case "chicago":
-		slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
-		// slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(args[1:], " "), slackChannel))
-		dialogObj := getWeather("chicago")
-		slackClient.SendMessage(slackClient.NewOutgoingMessage(string(dialogObj.Weather[0].Description), slackChannel))
-		break
-	// case "scan francisco":
+	// slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
+	dialogObj := getWeather(strings.ToLower(args[0]))
+	slackClient.SendMessage(slackClient.NewOutgoingMessage(string(dialogObj.Weather[0].Description), slackChannel))
+
+	// switch strings.ToLower(args[0]) {
+	// case "chicago":
 	// 	slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
-	// 	slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("san francisco"), slackChannel))
+	// 	// slackClient.SendMessage(slackClient.NewOutgoingMessage(strings.Join(args[1:], " "), slackChannel))
+	// 	dialogObj := getWeather("chicago")
+	// 	slackClient.SendMessage(slackClient.NewOutgoingMessage(string(dialogObj.Weather[0].Description), slackChannel))
 	// 	break
-	default:
-		slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
-		// slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("san francisco"), slackChannel))
-		return
-	}
+	// // case "scan francisco":
+	// // 	slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
+	// // 	slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("san francisco"), slackChannel))
+	// // 	break
+	// default:
+	// 	slackClient.SendMessage(slackClient.NewOutgoingMessage("Lemme pull up this weather for you, gimme a second, i'll GO get, get it! Hah, what you thought I only told weather, nah I got jokes too, you know,for them cloudy days </3", slackChannel))
+	// 	// slackClient.SendMessage(slackClient.NewOutgoingMessage(getWeather("san francisco"), slackChannel))
+	// 	return
+	// }
 
 	println("[RECEIVED] sendResponse:", args[0])
 
@@ -105,12 +108,10 @@ func sendResponse(slackClient *slack.RTM, message, slackChannel string) {
 }
 
 type WeatherDesc struct {
-	gorm.Model
 	Description string `json:"description"`
 }
 
 type Dialog struct {
-	gorm.Model
 	Weather []WeatherDesc `json:"weather"`
 }
 
