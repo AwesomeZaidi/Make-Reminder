@@ -11,3 +11,13 @@
 ## Instructions
 
 Follow [this link](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed-Ecosystems/blob/master/Lessons/Lesson07.md#setup-project) in order to get the project set up.
+
+
+## How to use
+
+Search `Make Reminder` on your Slack, and message `@Make-Reminder city name` 
+
+Ex: `@Make-Reminder Chicago`
+
+
+**The bot was initially going to be used as a reminder app which is why the name isn't fixed just yet, sorry!**
