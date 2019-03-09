@@ -15,9 +15,9 @@ Follow [this link](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed
 
 ## How to use
 
-Search `Make Reminder` on your Slack, and message `@Make-Reminder city name` 
+Search `Weather` on your Slack, and message `@Make-Reminder city name` 
 
-Ex: `@Make-Reminder Chicago`
+Ex: `@weather Chicago`
 
 
 **The bot was initially going to be used as a reminder app which is why the name isn't fixed just yet, sorry!**

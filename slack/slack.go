@@ -12,7 +12,7 @@ import (
 	"github.com/nlopes/slack"
 )
 
-const helpMessage = "type in '@make-reminder <whats the weather in> <location>'"
+const helpMessage = "type in '@weather <whats the weather in> <location>'"
 
 /*
    CreateSlackClient sets up the slack RTM (real-timemessaging) client library,
@@ -20,9 +20,12 @@ const helpMessage = "type in '@make-reminder <whats the weather in> <location>'"
    DO NOT EDIT THIS FUNCTION. This is a fully complete implementation.
 */
 func CreateSlackClient(apiKey string) *slack.RTM {
+	fmt.Println("yo")
 	api := slack.New(apiKey)
 	rtm := api.NewRTM()
 	go rtm.ManageConnection() // goroutine!
+	fmt.Println("yoooo")
+
 	return rtm
 }
 
