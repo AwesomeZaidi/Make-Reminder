@@ -2,7 +2,7 @@
 
 # MakeUtility Project
 
-Make-Reminder is a Golang Slackbot that can give you the weather of any city you'd like to know. All you have to do is just ask it 😄 🌤
+Weather is a Golang Slackbot that can give you the weather of any city you'd like to know. All you have to do is just ask it 😄 🌤
 
 ## Proposal Description
 

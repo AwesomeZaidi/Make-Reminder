@@ -15,9 +15,8 @@ Follow [this link](https://github.com/Make-School-Courses/BEW-2.5-Strongly-Typed
 
 ## How to use
 
-Search `Weather` on your Slack, and message `@Make-Reminder city name` 
+Search `Weather` on your Slack, and message `@Weather cityname` 
 
-Ex: `@weather Chicago`
+*Important* Currently, the Slackbot only accepts one word city names such as 'Chicago', 'Aurora', 'Naperville', 'Elgin', 'Joliet'
 
-
-**The bot was initially going to be used as a reminder app which is why the name isn't fixed just yet, sorry!**
+Ex: `@weather chicago`
