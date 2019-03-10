@@ -3,19 +3,18 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/droxey/goslackit/slack"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 )
 
 // main is our entrypoint, where the application initializes the Slackbot.
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 	// port := ":" + os.Getenv("PORT")
 	go http.ListenAndServe("4000", nil)
 	slackIt()
