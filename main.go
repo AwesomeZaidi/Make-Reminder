@@ -13,9 +13,16 @@ import (
 
 // main is our entrypoint, where the application initializes the Slackbot.
 func main() {
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		prod := os.Getenv("PRODUCTION")
+		if prod == "" {
+			log.Fatal("Error loading .env file")
+		}
 	}
 	port := ":" + os.Getenv("PORT")
 	go http.ListenAndServe(port, nil)
