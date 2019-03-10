@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/nlopes/slack"
@@ -121,7 +120,9 @@ type Dialog struct {
 func getWeather(location string) Dialog {
 	fmt.Println("hereee")
 	// make request to get my weather
-	res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=" + os.Getenv("API_KEY"))
+	res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=571a5879d88f85f46d167186199b1a5c")
+
+	// res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=" + os.Getenv("API_KEY"))
 	if err != nil {
 		log.Fatal(err)
 	}

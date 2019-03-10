@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/droxey/goslackit/slack"
 	"github.com/joho/godotenv"
@@ -17,16 +16,16 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	port := ":" + os.Getenv("PORT")
-	go http.ListenAndServe(port, nil)
+	// port := ":" + os.Getenv("PORT")
+	go http.ListenAndServe("4000", nil)
 	slackIt()
 }
 
 // slackIt is a function that initializes the Slackbot.
 func slackIt() {
-	botToken := os.Getenv("BOT_OAUTH_ACCESS_TOKEN")
-	fmt.Println(botToken)
-	slackClient := slack.CreateSlackClient(botToken)
+	// botToken := os.Getenv("BOT_OAUTH_ACCESS_TOKEN")
+	// fmt.Println(botToken)
+	slackClient := slack.CreateSlackClient("xoxb-47155861858-566989616759-yxZOERbTuTk544LWY2FvQTvB")
 	fmt.Println(slackClient)
 	slack.RespondToEvents(slackClient)
 }

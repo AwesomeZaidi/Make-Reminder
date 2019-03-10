@@ -36,7 +36,7 @@ Sometimes, when I'm on Slack messaging a friend about  my trip back home, I just
 | _Implement_ | ✅  | Utility Incorporates a Third-Party API                                              | **25** |  25   |
 | _Implement_ | ✅  | `README` Contains [Go Report Card](https://goreportcard.com) Badge at Top           |  **5** |  05   |
 | _Implement_ | ✅  | Source Code in Public GitHub Repo & Added to [Tracker](https://make.sc/trackbew2.5) |  **5** |  05   |
-| _Implement_ | ✅  | No Exposed Secrets in Source Code                                                   |  **5** |  05   |
+| _Implement_ | ✅  | No Exposed Secrets in Source Code                                                   |  **5** |  00   |
 | _Implement_ | ✅  | Properly Defined `.gitignore`                                                       |  **5** |  05   |
 | _Implement_ | ✅  | Attribution Links in Comments for "Borrowed" Code                                   |  **5** |  05   |
 |    _Deploy_ | ✅  | Shipped Live & Fully Usable                                                         | **30** |  30   |
